@@ -1,5 +1,5 @@
-import pandas as pd
-import numpy as np
+#import pandas as pd
+#import numpy as np
 import math
 
 
@@ -7,7 +7,7 @@ import math
 # wdb.set_trace()
 
 def newton(funcion):
-
+    ans = []
     funcion = funcion.split(',')
     X0 = float(funcion[0])
     Tol = float(funcion[1])
@@ -51,24 +51,32 @@ def newton(funcion):
         E.append(Error)
     if f == 0:
         s = x
-        print(s, "es raiz de f(x)")
+        ans.append(s)
+        #print(s, "es raiz de f(x)")
+        return(ans)
     elif Error < Tol:
         s = x
+        ans.append('Resultado: '+str(s))
+        ans.append('Iteraciones: '+str(N))
+        ans.append(xn)
+        ans.append(fn)
+        ans.append(E)
+        """
         print(s, "es una aproximacion de un raiz de f(x) con una tolerancia", Tol)
         print("N", N)
         print("xn", xn)
         print("fn", fn)
         print("Error", E)
+        """
+        return ans
     else:
         s = x
-        print("Fracaso en ", Niter, " iteraciones ")
+        ans = ['FRACASO EN '+str(Niter)]
+        return ans
 
 
-newton('1,0.0005,100,(x**3)-x-1,(3*x**2)-1')
-
-
-def biseccion(funcion):
-    funcion = funcion.split(',')
+def biseccion(parametros):
+    funcion = parametros.split(',')
     Xi = float(funcion[0])
     Xs = float(funcion[1])
     Tol = float(funcion[2])
@@ -87,6 +95,7 @@ def biseccion(funcion):
     Fun = input()
     '''
 
+    soltot = []
     fm = []
     E = []
     x = Xi
@@ -131,13 +140,14 @@ def biseccion(funcion):
             print(s, "es raiz de f(x)")
         elif Error < Tol:
             s = x
+            soltot.append(s,fm,)
             print(s, "es una aproximacion de un raiz de f(x) con una tolerancia", Tol)
             print("Fm", fm)
             print("Error", fm)
         else:
             s = x
-            print("Fracaso en ", Niter, " iteraciones ")
+            return ("Fracaso en ", Niter, " iteraciones ")
     else:
-        print("El intervalo es inadecuado")
+        return ("El intervalo es inadecuado")
 
-biseccion('0,1,0.000005,100,(x**4)+(3*x**3)-2')
+#biseccion('0,1,0.000005,100,(x**4)+(3*x**3)-2')
